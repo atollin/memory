@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="GreenMemory.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GreenMemory"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1066"
+             MouseUp="UserControl_MouseUp">
+    <Grid Name="gameGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="2.4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <local:AnimatedButton Margin="8" MaxWidth="128" x:Name="btnBack" ButtonImage="Game/Icons/3X/Back@3x.png"
+                              Click="backToSettings" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1.3*"/>
+            </Grid.RowDefinitions>
+            <local:PlayerView Grid.Row="1" x:Name="playerOneView"
+                              changedName="topPlayerNameChanged" nameGotKeyboardFocus="playerNameGotKeyboardFocus"
+                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <local:PlayerView Grid.Row="2" x:Name="playerTwoView"
+                              changedName="bottomPlayerNameChanged" nameGotKeyboardFocus="playerNameGotKeyboardFocus"
+                              VerticalAlignment="Top" HorizontalAlignment="Right" />
+            <local:AnimatedButton  Grid.Row="3" ButtonImage="Game/Icons/3X/Settings@3x.png" Click="openSettingsWindow"
+                                   VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5" />
+        </Grid>
+        <Viewbox Grid.Column="1" 
+                 Stretch="Uniform"
+                 Margin="10"
+                 Name="viewBox">
+            <Grid Name="CardGrid"/>
+        </Viewbox>
+        <Label Grid.Column="1"  Name="startLabel" Content="CLICK ANYWHERE TO START GAME" Background="#A0000000" Foreground="White" FontSize="30" 
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Game\Font\OpenSans.ttf" 
+               Height="{Binding ActualHeight, ElementName=viewBox}"
+               Width="{Binding ActualWidth, ElementName=viewBox}"/>
+        <local:GameOverWindow x:Name="gameoverWin" Grid.Column="0" Grid.ColumnSpan="3"
+                              Visibility="Collapsed" ClickedRestart="restartGameClick" />
+        <local:SettingsWindow x:Name="settingsWin" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" IsVisibleChanged="settingsWin_IsVisibleChanged" />
+    </Grid>
+</UserControl>
